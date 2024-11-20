@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">SHARA</string>
+    <string name="title_home">Home</string>
+    <string name="title_camera">Camera</string>
+    <string name="title_history">History</string>
+    <string name="email_invalid">Email tidak valid</string>
+    <string name="logout">Logout</string>
+    <string name="camera">Camera</string>
+    <string name="history">History</string>
+</resources>
