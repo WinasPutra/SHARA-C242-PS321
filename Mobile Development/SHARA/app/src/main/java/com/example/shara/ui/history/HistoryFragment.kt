@@ -1,4 +1,4 @@
-package com.example.shara.ui.notifications
+package com.example.shara.ui.history
 
 import android.os.Bundle
 import android.view.LayoutInflater

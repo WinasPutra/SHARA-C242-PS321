@@ -1,4 +1,4 @@
-package com.example.shara.ui.notifications
+package com.example.shara.ui.history
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
