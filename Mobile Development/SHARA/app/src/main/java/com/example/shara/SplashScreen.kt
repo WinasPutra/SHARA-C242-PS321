@@ -18,4 +18,5 @@ class SplashScreen : AppCompatActivity() {
         }, 1500)
 
     }
+    // tess
 }
