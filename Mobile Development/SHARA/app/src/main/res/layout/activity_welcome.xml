@@ -24,7 +24,8 @@
         android:id="@+id/textView2"
         android:layout_width="318dp"
         android:layout_height="73dp"
-        android:layout_marginTop="16dp"
+
+        android:layout_marginTop="20dp"
         android:text="@string/deskripsi"
         android:textAlignment="center"
         android:textSize="10sp"
@@ -54,7 +55,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.749" />
+        app:layout_constraintVertical_bias="0.796" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnRegister"
@@ -65,7 +66,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.749" />
+        app:layout_constraintVertical_bias="0.796" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
