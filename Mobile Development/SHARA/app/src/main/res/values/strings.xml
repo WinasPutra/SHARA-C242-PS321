@@ -7,4 +7,15 @@
     <string name="logout">Logout</string>
     <string name="camera">Camera</string>
     <string name="history">History</string>
+    <string name="shara">SHARA</string>
+    <string name="deskripsi">Deskripsi</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="welcome">welcome</string>
+    <string name="gambar">Gambar</string>
+    <string name="gallery">Gallery</string>
+    <string name="upload">Upload</string>
+    <string name="ed_username">Masukan username</string>
+    <string name="ed_email">Masukan Email</string>
+    <string name="ed_password">Masukan Password</string>
 </resources>
