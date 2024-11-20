@@ -24,6 +24,7 @@
         android:layout_width="351dp"
         android:layout_height="54dp"
         android:layout_marginTop="88dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView">
@@ -32,8 +33,6 @@
            android:id="@+id/ed_register_name"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:background="@color/aqua_haze"
-           android:textColor="@color/big_stone"
            android:hint="@string/ed_username"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -51,8 +50,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints="emailAddress"
-        android:background="@color/aqua_haze"
-        android:textColor="@color/big_stone"
         android:layout_weight="1"
         android:ems="10"
         android:hint="@string/ed_email"
@@ -77,8 +74,6 @@
             android:layout_weight="1"
             android:autofillHints="password"
             android:hint="@string/ed_password"
-            android:background="@color/aqua_haze"
-            android:textColor="@color/big_stone"
             android:ems="10"
             android:inputType="textPassword"
            />
@@ -87,12 +82,10 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonForRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="351dp"
+        android:layout_height="58dp"
         android:layout_marginTop="592dp"
-        android:backgroundTint="@color/aqua_haze"
         android:text="@string/register"
-        android:textColor="@color/big_stone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
