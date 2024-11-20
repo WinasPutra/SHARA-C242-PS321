@@ -11,5 +11,5 @@ Struggling to find the right skincare products for your unique skin type? SHARA,
 |  Amanda Widya Sujatmoko  |  M296B4KX0455  | Machine Learning |
 |   Novan Ilham Ramadhan    |  C296B4KY3399  |  Cloud Computing |
 |  Winas Putra Widyadhana  |  C296b4KY4497  |  Cloud Computing |
-|   Regan Putra Ramadhan     |  A296B4KY3729  |      Android     |
-|    Rachmananta Ibnu Fajar      |  A296B4KY3554  |      Android     |
+|   Regan Putra Ramadhan     |  A296B4KY3729  |      Mobile Developer     |
+|    Rachmananta Ibnu Fajar      |  A296B4KY3554  |      Mobile Developer     |
