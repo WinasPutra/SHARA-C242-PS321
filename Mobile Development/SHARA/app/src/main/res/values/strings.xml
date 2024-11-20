@@ -15,4 +15,7 @@
     <string name="gambar">Gambar</string>
     <string name="gallery">Gallery</string>
     <string name="upload">Upload</string>
+    <string name="ed_username">Masukan username</string>
+    <string name="ed_email">Masukan Email</string>
+    <string name="ed_password">Masukan Password</string>
 </resources>
