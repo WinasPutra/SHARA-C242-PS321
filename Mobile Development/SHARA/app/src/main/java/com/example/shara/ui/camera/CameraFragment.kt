@@ -3,6 +3,7 @@ package com.example.shara.ui.camera
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.shara.ResultActivity
 import com.example.shara.databinding.FragmentDashboardBinding
 import com.example.shara.util.CameraUtil
 
@@ -93,6 +95,7 @@ class CameraFragment : Fragment() {
 
         binding.btnUpload.setOnClickListener {
             Toast.makeText(activity, "Gambar berhasil diupload", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(activity, ResultActivity::class.java))
         }
     }
 
