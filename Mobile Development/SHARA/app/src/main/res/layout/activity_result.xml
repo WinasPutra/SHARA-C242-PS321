@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ResultActivity">
+    tools:context=".ui.result.ResultActivity">
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -25,7 +25,7 @@
         android:layout_height="33dp"
 
         android:layout_marginTop="60dp"
-        android:text="Kulit Berminyak"
+        android:text="@string/hasil"
         android:textAlignment="center"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +51,7 @@
         android:layout_height="33dp"
 
         android:layout_marginTop="16dp"
-        android:text="Hasil Deteksi Kulit Anda :"
+        android:text="@string/hasil_deteksi_kulit_anda"
         android:textAlignment="center"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +65,7 @@
         android:layout_height="40dp"
 
         android:layout_marginTop="148dp"
-        android:text="Rekomendasi Skincare :"
+        android:text="@string/rekomendasi_skincare"
         android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"

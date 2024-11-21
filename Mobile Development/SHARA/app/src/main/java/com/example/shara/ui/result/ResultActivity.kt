@@ -1,10 +1,7 @@
-package com.example.shara
+package com.example.shara.ui.result
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.shara.databinding.ActivityResultBinding
 
 class ResultActivity : AppCompatActivity() {
