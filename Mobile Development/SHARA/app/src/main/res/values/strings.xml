@@ -20,4 +20,7 @@
     <string name="ed_password">Masukan Password</string>
     <string name="nama_produk">Nama Produk</string>
     <string name="harga_produk">Harga Produk</string>
+    <string name="rekomendasi_skincare">Rekomendasi Skincare :</string>
+    <string name="hasil_deteksi_kulit_anda">Hasil Deteksi Kulit Anda :</string>
+    <string name="hasil">Hasil</string>
 </resources>
