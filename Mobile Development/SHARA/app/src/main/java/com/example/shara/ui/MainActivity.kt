@@ -1,4 +1,4 @@
-package com.example.shara
+package com.example.shara.ui
 
 import android.os.Bundle
 import android.view.Menu
@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.shara.R
 import com.example.shara.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
