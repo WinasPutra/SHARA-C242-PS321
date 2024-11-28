@@ -1,10 +1,10 @@
-package com.example.shara.ui.auth
+package com.example.shara.ui
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.shara.MainActivity
 import com.example.shara.databinding.ActivityWelcomeBinding
+import com.example.shara.ui.auth.register.RegisterActivity
 
 class WelcomeActivity : AppCompatActivity() {
 

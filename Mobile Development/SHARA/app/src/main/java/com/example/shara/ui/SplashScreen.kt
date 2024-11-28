@@ -1,11 +1,11 @@
-package com.example.shara
+package com.example.shara.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import com.example.shara.ui.auth.WelcomeActivity
+import com.example.shara.R
 
 
 class SplashScreen : AppCompatActivity() {
@@ -19,5 +19,4 @@ class SplashScreen : AppCompatActivity() {
         }, 1500)
 
     }
-    // tess
 }

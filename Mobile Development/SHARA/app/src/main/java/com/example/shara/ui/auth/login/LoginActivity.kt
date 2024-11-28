@@ -1,4 +1,4 @@
-package com.example.shara.ui.auth
+package com.example.shara.ui.auth.login
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

@@ -1,13 +1,10 @@
-package com.example.shara.ui.auth
+package com.example.shara.ui.auth.register
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.shara.R
 import com.example.shara.databinding.ActivityRegisterBinding
+import com.example.shara.ui.auth.login.LoginActivity
 
 class RegisterActivity : AppCompatActivity() {
 
