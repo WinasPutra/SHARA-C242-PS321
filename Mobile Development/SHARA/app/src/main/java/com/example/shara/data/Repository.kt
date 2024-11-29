@@ -47,6 +47,7 @@ class Repository(
                 )
                 userPreference.saveSession(userModel)
             }
+            emit(Result.Success(response))
         }catch (e: HttpException){
             val errorBody = e.response()?.errorBody()?.string()
             val errorMessage = errorBody?.let {
