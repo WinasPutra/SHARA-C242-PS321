@@ -1,7 +1,9 @@
 package com.example.shara.data
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.shara.data.di.Injection
 import com.example.shara.ui.MainViewModel
 import com.example.shara.ui.auth.login.LoginViewModel
 import com.example.shara.ui.auth.register.RegisterViewModel
@@ -26,6 +28,20 @@ ViewModelProvider.NewInstanceFactory(){
             else -> {
                 throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
             }
+        }
+    }
+
+    companion object {
+        @Volatile
+        private var INSTANCE: ViewModelFactory? = null
+        @JvmStatic
+        fun getInstance(context: Context): ViewModelFactory {
+            if (INSTANCE == null) {
+                synchronized(ViewModelFactory::class.java) {
+                    INSTANCE = ViewModelFactory(Injection.provideRepository(context))
+                }
+            }
+            return INSTANCE as ViewModelFactory
         }
     }
 }
