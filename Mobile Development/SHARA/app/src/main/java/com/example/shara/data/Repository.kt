@@ -7,11 +7,6 @@ class Repository(
     private val apiService: ApiService,
     private val userPreference: UserPreference
 ) {
-
-
-
-
-
     companion object {
         @Volatile
         private var instance: Repository? = null
