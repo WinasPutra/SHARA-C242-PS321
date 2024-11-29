@@ -16,7 +16,7 @@ class Repository(
     private val userPreference: UserPreference
 ) {
 
-    fun userRegister(
+    fun register(
     name: String,
     email: String,
     password: String
