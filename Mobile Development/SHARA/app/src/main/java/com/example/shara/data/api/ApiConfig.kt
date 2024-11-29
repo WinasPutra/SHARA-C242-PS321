@@ -1,5 +1,6 @@
 package com.example.shara.data.api
 
+import android.util.Log
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -7,7 +8,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiConfig {
     companion object {
-        fun getApiService():ApiService{
+        private const val TAG = "ApiConfig"
+        fun getApiService(tokenKey: String):ApiService{
+            Log.d(TAG, "Creating ApiService with token: $tokenKey")
             val loggingInterceptor =
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             val client = OkHttpClient.Builder()
