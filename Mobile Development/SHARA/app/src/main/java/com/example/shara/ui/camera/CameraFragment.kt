@@ -126,9 +126,9 @@ class CameraFragment : Fragment() {
                         is Result.Success ->{
                             Log.d(TAG, "Upload: Success! Message: ${result.data.message}")
                             showLoading(false)
-                            Toast.makeText(requireContext(),"Success: ${result.data.message}", Toast.LENGTH_SHORT).show()
                             val intent = Intent(requireContext(), ResultActivity::class.java)
                             startActivity(intent)
+                            Toast.makeText(requireContext(),"Success: ${result.data.message}", Toast.LENGTH_SHORT).show()
 //                            AlertDialog.Builder(requireContext()).apply {
 //                                setTitle("Oh Yeah!")
 //                                setMessage("Next")

@@ -8,6 +8,7 @@ import com.example.shara.ui.MainViewModel
 import com.example.shara.ui.auth.login.LoginViewModel
 import com.example.shara.ui.auth.register.RegisterViewModel
 import com.example.shara.ui.camera.CameraViewModel
+import com.example.shara.ui.result.ResultViewModel
 
 class ViewModelFactory(private val repository: Repository):
 ViewModelProvider.NewInstanceFactory(){
@@ -28,6 +29,10 @@ ViewModelProvider.NewInstanceFactory(){
 
             modelClass.isAssignableFrom(CameraViewModel::class.java) -> {
                 CameraViewModel(repository) as T
+            }
+
+            modelClass.isAssignableFrom(ResultViewModel::class.java) -> {
+                ResultViewModel(repository) as T
             }
 
             else -> {

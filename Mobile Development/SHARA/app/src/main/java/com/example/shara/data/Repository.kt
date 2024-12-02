@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.example.shara.data.api.ApiService
 import com.example.shara.data.model.UserModel
+import com.example.shara.data.response.GetResusltResponse
 import com.example.shara.data.response.LoginResponse
 import com.example.shara.data.response.RegisterResponse
 import com.example.shara.data.response.UploadImageResponse
@@ -81,6 +82,26 @@ class Repository(
                 JSONObject(it).getString("message")
             } ?: "An error occurred"
             emit(Result.Error(errorMessage))
+        }
+    }
+
+    fun getResult(): LiveData<Result<GetResusltResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val user = userPreference.getSession().first()
+            val token = user.tokenKey
+            if (token.isNotEmpty()) {
+                val response = apiService.getResult("Bearer $token")
+                emit(Result.Success(response))
+            }
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorMessage = errorBody?.let {
+                JSONObject(it).getString("message")
+            } ?: "An error occurred"
+            emit(Result.Error(errorMessage))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message ?: "Unknown error"))
         }
     }
 
