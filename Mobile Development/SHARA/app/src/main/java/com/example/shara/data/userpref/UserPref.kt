@@ -16,13 +16,18 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "se
 class UserPreference private constructor(private val dataStore: DataStore<Preferences>) {
 
     suspend fun saveSession(user: UserModel) {
-        Log.d(TAG, "Saving session - Token before save: ${user.tokenKey}")
+        Log.d(TAG, "Saving session - Start")
+        Log.d(TAG, "Saving session - User ID: ${user.userId}")
+        Log.d(TAG, "Saving session - Username: ${user.username}")
+        Log.d(TAG, "Saving session - Email: ${user.email}")
+        Log.d(TAG, "Saving session - Token : ${user.tokenKey}")
         dataStore.edit {
             it[USER_ID] = user.userId
             it[USERNAME] = user.username
             it[EMAIL] = user.email
             it[TOKEN] = user.tokenKey
         }
+        Log.d(TAG, "Saving session - Completed")
     }
 
     fun getSession(): Flow<UserModel> {
@@ -35,6 +40,8 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
             )
         }
     }
+
+
 
     suspend fun logout() {
         dataStore.edit { preferences ->
