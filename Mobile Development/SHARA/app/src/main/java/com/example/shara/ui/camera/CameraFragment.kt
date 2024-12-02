@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -37,6 +38,7 @@ class CameraFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setupUpload()
 
         @Suppress("DEPRECATION")
@@ -108,13 +110,47 @@ class CameraFragment : Fragment() {
 
         binding.btnUpload.setOnClickListener {
             currentImage?.let { uri ->
-                val image = CameraUtil.uriToFile(uri, requireContext())
+                val image = CameraUtil.uriToFile(uri, requireContext()).reduceFileImage()
                 val requestImageFile = image.asRequestBody("image/jpeg".toMediaType())
                 val multipartBody = MultipartBody.Part.createFormData(
                     "image",
                     image.name,
                     requestImageFile
                 )
+
+                cameraViewModel.uploadImg(multipartBody).observe(viewLifecycleOwner){result ->
+                    when(result){
+                        is Result.Loading -> {
+                            Log.d(TAG, "Upload: Loading...")
+                            showLoading(true)}
+                        is Result.Success ->{
+                            Log.d(TAG, "Upload: Success! Message: ${result.data.message}")
+                            showLoading(false)
+                            Toast.makeText(requireContext(),"Success: ${result.data.message}", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(requireContext(), ResultActivity::class.java)
+                            startActivity(intent)
+//                            AlertDialog.Builder(requireContext()).apply {
+//                                setTitle("Oh Yeah!")
+//                                setMessage("Next")
+//                                setPositiveButton("Next"){_,_ ->
+//                                    val intent = Intent(requireContext(), ResultActivity::class.java)
+//                                    intent.flags =
+//                                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+//                                    startActivity(intent)
+//                                }
+//                                show()
+//                            }
+
+
+
+
+                        }
+                        is Result.Error ->{
+                            showLoading(false)
+                            Toast.makeText(requireContext(), "Error: ${result.error}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
                 
             }
         }
@@ -125,6 +161,7 @@ class CameraFragment : Fragment() {
     }
 
     companion object {
+        private const val TAG = "CameraFragment"
         private const val IMG = "currentImage"
     }
 }

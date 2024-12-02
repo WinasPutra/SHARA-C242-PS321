@@ -66,7 +66,23 @@ class Repository(
         }
     }
 
-//    fun uploadImage()
+    fun uploadImage(file: MultipartBody.Part): LiveData<Result<UploadImageResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val user = userPreference.getSession().first()
+            val token = user.tokenKey
+            if (token.isNotEmpty()){
+                val response = apiService.uploadImage(file,"Bearer $token")
+                emit(Result.Success(response))
+            }
+        }catch (e: HttpException){
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorMessage = errorBody?.let {
+                JSONObject(it).getString("message")
+            } ?: "An error occurred"
+            emit(Result.Error(errorMessage))
+        }
+    }
 
     fun getSession(): Flow<UserModel>{
         Log.d(TAG, "Retrieving user session")

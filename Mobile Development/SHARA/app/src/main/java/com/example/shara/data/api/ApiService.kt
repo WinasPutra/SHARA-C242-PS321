@@ -32,6 +32,7 @@ interface ApiService {
     @Multipart
     @POST("upload-image")
     suspend fun uploadImage(
+        @Part file: MultipartBody.Part,
         @Header("Authorization") token: String
     ): UploadImageResponse
 }
