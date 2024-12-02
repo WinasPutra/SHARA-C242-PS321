@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.shara.adapter.RecommendationAdapter
 import com.example.shara.data.Result
 import com.example.shara.data.ViewModelFactory
 import com.example.shara.databinding.ActivityResultBinding
 
 class ResultActivity : AppCompatActivity() {
     private lateinit var binding: ActivityResultBinding
+    private lateinit var recommendationAdapter: RecommendationAdapter
     private val resultViewModel: ResultViewModel by viewModels{
         ViewModelFactory.getInstance(this)
     }
@@ -17,6 +20,12 @@ class ResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding=ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        recommendationAdapter = RecommendationAdapter()
+        binding.rvRekomendasi.adapter = recommendationAdapter
+        binding.rvRekomendasi.layoutManager = LinearLayoutManager(this)
+
+        getRecommendations()
         getResult()
         showLoading(false)
     }
@@ -36,6 +45,23 @@ class ResultActivity : AppCompatActivity() {
 
                 is Result.Error ->{
                     showLoading(false)
+                }
+            }
+        }
+    }
+
+    private fun getRecommendations() {
+        resultViewModel.getRecommendations().observe(this) { result ->
+            when (result) {
+                is Result.Loading -> showLoading(true)
+                is Result.Success -> {
+                    showLoading(false)
+                    val recommendations = result.data.history?.firstOrNull()?.recommendations
+                    recommendationAdapter.submitList(recommendations?.filterNotNull())
+                }
+                is Result.Error -> {
+                    showLoading(false)
+                    // Handle error
                 }
             }
         }

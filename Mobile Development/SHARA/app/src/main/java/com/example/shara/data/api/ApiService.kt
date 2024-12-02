@@ -41,4 +41,9 @@ interface ApiService {
     suspend fun getResult(
         @Header("Authorization") token: String
     ): GetResultResponse
+
+    @GET("get-history")
+    suspend fun getRecommendationsItem(
+        @Header("Authorization") token: String
+    ): GetResultResponse
 }

@@ -12,4 +12,6 @@ import okhttp3.MultipartBody
 
 class CameraViewModel(private val repository: Repository) : ViewModel() {
  fun uploadImg(file:MultipartBody.Part) = repository.uploadImage(file)
+
+
 }
