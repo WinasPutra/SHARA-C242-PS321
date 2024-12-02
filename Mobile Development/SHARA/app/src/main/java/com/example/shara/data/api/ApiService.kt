@@ -30,6 +30,7 @@ interface ApiService {
     ): LoginResponse
 
     @Multipart
+    @POST("upload-image")
     suspend fun uploadImage(
         @Header("Authorization") token: String
     ): UploadImageResponse
