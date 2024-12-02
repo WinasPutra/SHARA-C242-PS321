@@ -8,6 +8,13 @@ import com.bumptech.glide.Glide
 import androidx.recyclerview.widget.DiffUtil
 import com.example.shara.data.response.HistoryItem
 import com.example.shara.databinding.HistoryRowBinding
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.Calendar
+import java.util.Locale
+import java.util.TimeZone
 
 class HistoryAdapter :
     ListAdapter<HistoryItem, HistoryAdapter.ViewHolder>(DIFF_CALLBACK) {
@@ -20,7 +27,28 @@ class HistoryAdapter :
                 histTvItemName.text = "Skin Type: ${history.skinType ?: "Unknown"}"
 
                 // Tampilkan diagnosis date
-                histTvItemName3.text = "Date: ${history.diagnosisDate ?: "No Date"}"
+                val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+                inputFormat.timeZone = TimeZone.getTimeZone("UTC")
+
+                val outputFormat = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault())
+                outputFormat.timeZone = TimeZone.getTimeZone("Asia/Jakarta")
+
+                val formattedDate = try {
+                    val date = inputFormat.parse(history.diagnosisDate ?: "")
+                    date?.let {
+                        // Tambahkan 7 jam untuk WIB
+                        val calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Jakarta"))
+                        calendar.time = it
+                        calendar.add(Calendar.HOUR_OF_DAY, 0)
+
+                        outputFormat.format(calendar.time)
+                    } ?: "No Date"
+                } catch (e: Exception) {
+                    "Invalid Date"
+                }
+
+                // Tampilkan diagnosis date yang sudah diformat
+                histTvItemName3.text = "Date: $formattedDate WIB"
 
                 // Tampilkan gambar yang di-upload
                 Glide.with(itemView.context)

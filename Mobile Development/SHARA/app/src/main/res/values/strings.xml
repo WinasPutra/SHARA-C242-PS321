@@ -26,5 +26,6 @@
     <string name="deskripsi_produk">Deskripsi Produk</string>
     <string name="skin_type">Skin Type</string>
     <string name="insert_skin_type">Result Skin Type</string>
+    <string name="riwayat_upload">Riwayat Upload</string>
 
 </resources>
