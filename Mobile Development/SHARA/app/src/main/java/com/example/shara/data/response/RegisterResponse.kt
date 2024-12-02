@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class RegisterResponse(
 
+	@field:SerializedName("idToken")
+	val idToken: String? = null,
+
 	@field:SerializedName("message")
 	val message: String? = null,
 
