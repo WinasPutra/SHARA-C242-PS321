@@ -125,6 +125,26 @@ class Repository(
         }
     }
 
+    fun getHistories(): LiveData<Result<GetResultResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val user = userPreference.getSession().first()
+            val token = user.tokenKey
+            if (token.isNotEmpty()) {
+                val response = apiService.getHistory("Bearer $token")
+                emit(Result.Success(response))
+            }
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorMessage = errorBody?.let {
+                JSONObject(it).getString("message")
+            } ?: "An error occurred"
+            emit(Result.Error(errorMessage))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message ?: "Unknown error"))
+        }
+    }
+
     fun getSession(): Flow<UserModel>{
         Log.d(TAG, "Retrieving user session")
         return userPreference.getSession()

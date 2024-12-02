@@ -10,7 +10,6 @@ data class GetResultResponse(
 	@field:SerializedName("message")
 	val message: String? = null
 )
-
 data class RecommendationsItem(
 
 	@field:SerializedName("price")

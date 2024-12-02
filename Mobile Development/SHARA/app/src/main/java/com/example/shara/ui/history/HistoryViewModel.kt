@@ -3,11 +3,8 @@ package com.example.shara.ui.history
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.shara.data.Repository
 
-class HistoryViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
-    }
-    val text: LiveData<String> = _text
+class HistoryViewModel(private val repository: Repository) : ViewModel() {
+    fun getHistories() = repository.getHistories()
 }
