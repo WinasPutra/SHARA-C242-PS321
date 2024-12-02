@@ -1,6 +1,6 @@
 package com.example.shara.data.api
 
-import com.example.shara.data.response.GetResusltResponse
+import com.example.shara.data.response.GetResultResponse
 import com.example.shara.data.response.LoginResponse
 import com.example.shara.data.response.RegisterResponse
 import com.example.shara.data.response.UploadImageResponse
@@ -12,7 +12,6 @@ import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
-import retrofit2.http.Query
 
 interface ApiService {
 
@@ -41,5 +40,5 @@ interface ApiService {
     @GET("get-history")
     suspend fun getResult(
         @Header("Authorization") token: String
-    ): GetResusltResponse
+    ): GetResultResponse
 }

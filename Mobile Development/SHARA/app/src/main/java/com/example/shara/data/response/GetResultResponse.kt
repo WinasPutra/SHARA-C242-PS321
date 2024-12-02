@@ -2,7 +2,7 @@ package com.example.shara.data.response
 
 import com.google.gson.annotations.SerializedName
 
-data class GetResusltResponse(
+data class GetResultResponse(
 
 	@field:SerializedName("history")
 	val history: List<HistoryItem?>? = null,
