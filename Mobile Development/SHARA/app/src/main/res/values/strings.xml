@@ -23,4 +23,8 @@
     <string name="rekomendasi_skincare">Rekomendasi Skincare :</string>
     <string name="hasil_deteksi_kulit_anda">Hasil Deteksi Kulit Anda :</string>
     <string name="hasil">Hasil</string>
+    <string name="deskripsi_produk">Deskripsi Produk</string>
+    <string name="skin_type">Skin Type</string>
+    <string name="insert_skin_type">Result Skin Type</string>
+
 </resources>
