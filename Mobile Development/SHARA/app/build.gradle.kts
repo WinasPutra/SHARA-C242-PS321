@@ -16,6 +16,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", "\"https://backend-server-924391499025.asia-southeast2.run.app/\"")
+        buildConfigField("String", "API_KEY", "\"1853a880b0bb4265a7a131d904b69f8b\"")
     }
 
     buildTypes {

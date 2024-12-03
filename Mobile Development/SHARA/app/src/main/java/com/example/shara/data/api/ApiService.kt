@@ -2,6 +2,7 @@ package com.example.shara.data.api
 
 import com.example.shara.data.response.GetResultResponse
 import com.example.shara.data.response.LoginResponse
+import com.example.shara.data.response.NewsResponse
 import com.example.shara.data.response.RegisterResponse
 import com.example.shara.data.response.UploadImageResponse
 import okhttp3.MultipartBody
@@ -12,6 +13,7 @@ import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -51,4 +53,11 @@ interface ApiService {
     suspend fun getHistory(
         @Header("Authorization") token: String
     ): GetResultResponse
+
+    @GET("top-headlines")
+    suspend fun getNews(
+        @Query("apiKey") apiKey: String,
+        @Query("country") country: String = "us",
+        @Query("category") category: String = "health"
+    ): NewsResponse
 }
