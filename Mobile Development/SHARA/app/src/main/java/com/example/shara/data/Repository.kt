@@ -5,11 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.example.shara.data.api.ApiService
 import com.example.shara.data.model.UserModel
+import com.example.shara.data.response.ErrorResponse
 import com.example.shara.data.response.GetResultResponse
 import com.example.shara.data.response.LoginResponse
 import com.example.shara.data.response.RegisterResponse
 import com.example.shara.data.response.UploadImageResponse
 import com.example.shara.data.userpref.UserPreference
+import com.google.gson.Gson
 import org.json.JSONObject
 import retrofit2.HttpException
 import kotlinx.coroutines.flow.Flow
@@ -33,11 +35,10 @@ class Repository(
             Log.d(TAG, "Received user ID: ${response.userId}")
             emit(Result.Success(response))
         } catch (e: HttpException){
-            val errorBody = e.response()?.errorBody()?.string()
-            val errorMessage = errorBody?.let {
-                JSONObject(it).getString("message")
-            } ?: "An error occurred"
-            emit(Result.Error(errorMessage))
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            emit(Result.Error(errorMessage.toString()))
         }
     }
 
@@ -59,11 +60,10 @@ class Repository(
             }
             emit(Result.Success(response))
         }catch (e: HttpException){
-            val errorBody = e.response()?.errorBody()?.string()
-            val errorMessage = errorBody?.let {
-                JSONObject(it).getString("message")
-            } ?: "An error occurred"
-            emit(Result.Error(errorMessage))
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            emit(Result.Error(errorMessage.toString()))
         }
     }
 
@@ -77,11 +77,10 @@ class Repository(
                 emit(Result.Success(response))
             }
         }catch (e: HttpException){
-            val errorBody = e.response()?.errorBody()?.string()
-            val errorMessage = errorBody?.let {
-                JSONObject(it).getString("message")
-            } ?: "An error occurred"
-            emit(Result.Error(errorMessage))
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            emit(Result.Error(errorMessage.toString()))
         }
     }
 
@@ -95,13 +94,10 @@ class Repository(
                 emit(Result.Success(response))
             }
         } catch (e: HttpException) {
-            val errorBody = e.response()?.errorBody()?.string()
-            val errorMessage = errorBody?.let {
-                JSONObject(it).getString("message")
-            } ?: "An error occurred"
-            emit(Result.Error(errorMessage))
-        } catch (e: Exception) {
-            emit(Result.Error(e.message ?: "Unknown error"))
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            emit(Result.Error(errorMessage.toString()))
         }
     }
 
@@ -115,13 +111,10 @@ class Repository(
                 emit(Result.Success(response))
             }
         } catch (e: HttpException) {
-            val errorBody = e.response()?.errorBody()?.string()
-            val errorMessage = errorBody?.let {
-                JSONObject(it).getString("message")
-            } ?: "An error occurred"
-            emit(Result.Error(errorMessage))
-        } catch (e: Exception) {
-            emit(Result.Error(e.message ?: "Unknown error"))
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            emit(Result.Error(errorMessage.toString()))
         }
     }
 
@@ -135,13 +128,10 @@ class Repository(
                 emit(Result.Success(response))
             }
         } catch (e: HttpException) {
-            val errorBody = e.response()?.errorBody()?.string()
-            val errorMessage = errorBody?.let {
-                JSONObject(it).getString("message")
-            } ?: "An error occurred"
-            emit(Result.Error(errorMessage))
-        } catch (e: Exception) {
-            emit(Result.Error(e.message ?: "Unknown error"))
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            emit(Result.Error(errorMessage.toString()))
         }
     }
 
