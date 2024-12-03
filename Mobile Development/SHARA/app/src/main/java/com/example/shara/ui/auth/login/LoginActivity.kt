@@ -4,13 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.shara.R
 import com.example.shara.data.Result
 import com.example.shara.data.ViewModelFactory
 import com.example.shara.databinding.ActivityLoginBinding
@@ -44,7 +40,6 @@ class LoginActivity : AppCompatActivity() {
                             is Result.Success ->{
                                 showLoading(false)
                                 AlertDialog.Builder(this).apply {
-                                    // Login Action
                                     setTitle("Oh Yeah!")
                                     setMessage("Berhasil Login!!")
                                     setPositiveButton("Next") { _, _ ->
@@ -60,7 +55,6 @@ class LoginActivity : AppCompatActivity() {
                             }
 
                             is Result.Error -> {
-                                //Error
                                 showLoading(false)
                                 Toast.makeText(this, "Login Gagal: ${result.error}", Toast.LENGTH_SHORT).show()
                             }

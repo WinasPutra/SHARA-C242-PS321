@@ -4,26 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.example.shara.data.Result
 import com.example.shara.data.ViewModelFactory
-import com.example.shara.data.userpref.UserPreference
-import com.example.shara.data.userpref.dataStore
 import com.example.shara.ui.result.ResultActivity
 import com.example.shara.databinding.FragmentDashboardBinding
 import com.example.shara.util.CameraUtil
 import com.example.shara.util.CameraUtil.reduceFileImage
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -120,30 +113,11 @@ class CameraFragment : Fragment() {
 
                 cameraViewModel.uploadImg(multipartBody).observe(viewLifecycleOwner){result ->
                     when(result){
-                        is Result.Loading -> {
-                            Log.d(TAG, "Upload: Loading...")
-                            showLoading(true)}
+                        is Result.Loading ->  showLoading(true)
                         is Result.Success ->{
-                            Log.d(TAG, "Upload: Success! Message: ${result.data.message}")
                             showLoading(false)
                             val intent = Intent(requireContext(), ResultActivity::class.java)
                             startActivity(intent)
-                            Toast.makeText(requireContext(),"Success: ${result.data.message}", Toast.LENGTH_SHORT).show()
-//                            AlertDialog.Builder(requireContext()).apply {
-//                                setTitle("Oh Yeah!")
-//                                setMessage("Next")
-//                                setPositiveButton("Next"){_,_ ->
-//                                    val intent = Intent(requireContext(), ResultActivity::class.java)
-//                                    intent.flags =
-//                                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//                                    startActivity(intent)
-//                                }
-//                                show()
-//                            }
-
-
-
-
                         }
                         is Result.Error ->{
                             showLoading(false)
@@ -161,7 +135,6 @@ class CameraFragment : Fragment() {
     }
 
     companion object {
-        private const val TAG = "CameraFragment"
         private const val IMG = "currentImage"
     }
 }

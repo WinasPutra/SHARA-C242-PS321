@@ -1,6 +1,5 @@
 package com.example.shara.data.api
 
-import android.util.Log
 import com.example.shara.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -10,7 +9,7 @@ import java.util.concurrent.TimeUnit
 
 class ApiConfig {
     companion object {
-        fun getApiService(tokenKey: String):ApiService{
+        fun getApiService():ApiService{
             val loggingInterceptor = if (BuildConfig.DEBUG) {
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             } else {

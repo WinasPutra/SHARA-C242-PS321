@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.example.shara.data.Result
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shara.adapter.HistoryAdapter
@@ -52,10 +50,10 @@ class HistoryFragment : Fragment() {
                 is Result.Success -> {
                     showLoading(false)
                     val histories = result.data.history?.filterNotNull()
-                    if (histories.isNullOrEmpty()) {
-                        Toast.makeText(context, "No history available", Toast.LENGTH_SHORT).show()
-                    } else {
-                        historyAdapter.submitList(histories)
+                    if (histories != null) {
+                        if (histories.isNotEmpty()) {
+                            historyAdapter.submitList(histories)
+                        }
                     }
                 }
                 is Result.Error -> {
