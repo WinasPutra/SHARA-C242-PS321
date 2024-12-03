@@ -1,5 +1,6 @@
 package com.example.shara.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -8,6 +9,7 @@ import com.bumptech.glide.Glide
 import androidx.recyclerview.widget.DiffUtil
 import com.example.shara.data.response.HistoryItem
 import com.example.shara.databinding.HistoryRowBinding
+import com.example.shara.util.DateFormatter
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -21,36 +23,14 @@ class HistoryAdapter :
 
     class ViewHolder(private val binding: HistoryRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(history: HistoryItem) {
             binding.apply {
-                // Tampilkan skin type
                 histTvItemName.text = "Skin Type: ${history.skinType ?: "Unknown"}"
-
-                // Tampilkan diagnosis date
-                val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
-                inputFormat.timeZone = TimeZone.getTimeZone("UTC")
-
-                val outputFormat = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault())
-                outputFormat.timeZone = TimeZone.getTimeZone("Asia/Jakarta")
-
-                val formattedDate = try {
-                    val date = inputFormat.parse(history.diagnosisDate ?: "")
-                    date?.let {
-                        // Tambahkan 7 jam untuk WIB
-                        val calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Jakarta"))
-                        calendar.time = it
-                        calendar.add(Calendar.HOUR_OF_DAY, 0)
-
-                        outputFormat.format(calendar.time)
-                    } ?: "No Date"
-                } catch (e: Exception) {
-                    "Invalid Date"
-                }
-
-                // Tampilkan diagnosis date yang sudah diformat
-                histTvItemName3.text = "Date: $formattedDate WIB"
-
-                // Tampilkan gambar yang di-upload
+                val formattedDate = history.diagnosisDate?.let {
+                    DateFormatter.formatDateWib(it)
+                } ?: "No Date"
+                histTvItemName3.text = "Date: $formattedDate WIB"
                 Glide.with(itemView.context)
                     .load(history.imageUrl)
                     .into(histImgItemPhoto)
