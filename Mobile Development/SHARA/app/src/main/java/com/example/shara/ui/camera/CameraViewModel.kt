@@ -1,13 +1,12 @@
 package com.example.shara.ui.camera
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+
 import androidx.lifecycle.ViewModel
+import com.example.shara.data.Repository
+import okhttp3.MultipartBody
 
-class CameraViewModel : ViewModel() {
+class CameraViewModel(private val repository: Repository) : ViewModel() {
+ fun uploadImg(file:MultipartBody.Part) = repository.uploadImage(file)
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
-    }
-    val text: LiveData<String> = _text
+
 }

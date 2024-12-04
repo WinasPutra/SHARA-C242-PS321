@@ -1,7 +1,6 @@
 package com.example.shara.data.userpref
 
 import android.content.Context
-import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -16,7 +15,6 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "se
 class UserPreference private constructor(private val dataStore: DataStore<Preferences>) {
 
     suspend fun saveSession(user: UserModel) {
-        Log.d(TAG, "Saving session - Token before save: ${user.tokenKey}")
         dataStore.edit {
             it[USER_ID] = user.userId
             it[USERNAME] = user.username
@@ -36,6 +34,8 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         }
     }
 
+
+
     suspend fun logout() {
         dataStore.edit { preferences ->
             preferences.clear()
@@ -43,7 +43,6 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
     }
 
     companion object {
-        private const val TAG = "UserPreference"
         @Volatile
         private var INSTANCE: UserPreference? = null
 

@@ -1,15 +1,21 @@
 package com.example.shara.data
 
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.example.shara.data.api.ApiService
 import com.example.shara.data.model.UserModel
+import com.example.shara.data.response.ErrorResponse
+import com.example.shara.data.response.GetResultResponse
 import com.example.shara.data.response.LoginResponse
 import com.example.shara.data.response.RegisterResponse
+import com.example.shara.data.response.UploadImageResponse
 import com.example.shara.data.userpref.UserPreference
-import org.json.JSONObject
+import com.google.gson.Gson
 import retrofit2.HttpException
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import okhttp3.MultipartBody
 
 class Repository(
     private val apiService: ApiService,
@@ -26,11 +32,10 @@ class Repository(
             val response = apiService.register(name, email, password)
             emit(Result.Success(response))
         } catch (e: HttpException){
-            val errorBody = e.response()?.errorBody()?.string()
-            val errorMessage = errorBody?.let {
-                JSONObject(it).getString("message")
-            } ?: "An error occurred"
-            emit(Result.Error(errorMessage))
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            emit(Result.Error(errorMessage.toString()))
         }
     }
 
@@ -49,11 +54,78 @@ class Repository(
             }
             emit(Result.Success(response))
         }catch (e: HttpException){
-            val errorBody = e.response()?.errorBody()?.string()
-            val errorMessage = errorBody?.let {
-                JSONObject(it).getString("message")
-            } ?: "An error occurred"
-            emit(Result.Error(errorMessage))
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            emit(Result.Error(errorMessage.toString()))
+        }
+    }
+
+    fun uploadImage(file: MultipartBody.Part): LiveData<Result<UploadImageResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val user = userPreference.getSession().first()
+            val token = user.tokenKey
+            if (token.isNotEmpty()){
+                val response = apiService.uploadImage(file,"Bearer $token")
+                emit(Result.Success(response))
+            }
+        }catch (e: HttpException){
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            emit(Result.Error(errorMessage.toString()))
+        }
+    }
+
+    fun getResult(): LiveData<Result<GetResultResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val user = userPreference.getSession().first()
+            val token = user.tokenKey
+            if (token.isNotEmpty()) {
+                val response = apiService.getResult("Bearer $token")
+                emit(Result.Success(response))
+            }
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            emit(Result.Error(errorMessage.toString()))
+        }
+    }
+
+    fun getRecommendations(): LiveData<Result<GetResultResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val user = userPreference.getSession().first()
+            val token = user.tokenKey
+            if (token.isNotEmpty()) {
+                val response = apiService.getRecommendationsItem("Bearer $token")
+                emit(Result.Success(response))
+            }
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            emit(Result.Error(errorMessage.toString()))
+        }
+    }
+
+    fun getHistories(): LiveData<Result<GetResultResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val user = userPreference.getSession().first()
+            val token = user.tokenKey
+            if (token.isNotEmpty()) {
+                val response = apiService.getHistory("Bearer $token")
+                emit(Result.Success(response))
+            }
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            emit(Result.Error(errorMessage.toString()))
         }
     }
 

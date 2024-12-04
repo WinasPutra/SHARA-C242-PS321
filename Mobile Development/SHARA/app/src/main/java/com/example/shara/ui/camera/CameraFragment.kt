@@ -10,22 +10,34 @@ import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.example.shara.data.Result
+import com.example.shara.data.ViewModelFactory
 import com.example.shara.ui.result.ResultActivity
 import com.example.shara.databinding.FragmentDashboardBinding
 import com.example.shara.util.CameraUtil
+import com.example.shara.util.CameraUtil.reduceFileImage
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 
 class CameraFragment : Fragment() {
 
     private lateinit var binding: FragmentDashboardBinding
     private var currentImage: Uri? = null
+    private val cameraViewModel: CameraViewModel by viewModels {
+        ViewModelFactory.getInstance(requireContext())
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setupUpload()
 
         @Suppress("DEPRECATION")
         currentImage = savedInstanceState?.getParcelable(IMG)
         showImage()
+        showLoading(false)
     }
 
     override fun onCreateView(
@@ -33,7 +45,6 @@ class CameraFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false)
         return binding.root
@@ -91,9 +102,36 @@ class CameraFragment : Fragment() {
         }
 
         binding.btnUpload.setOnClickListener {
-            Toast.makeText(activity, "Gambar berhasil diupload", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(activity, ResultActivity::class.java))
+            currentImage?.let { uri ->
+                val image = CameraUtil.uriToFile(uri, requireContext()).reduceFileImage()
+                val requestImageFile = image.asRequestBody("image/jpeg".toMediaType())
+                val multipartBody = MultipartBody.Part.createFormData(
+                    "image",
+                    image.name,
+                    requestImageFile
+                )
+
+                cameraViewModel.uploadImg(multipartBody).observe(viewLifecycleOwner){result ->
+                    when(result){
+                        is Result.Loading ->  showLoading(true)
+                        is Result.Success ->{
+                            showLoading(false)
+                            val intent = Intent(requireContext(), ResultActivity::class.java)
+                            startActivity(intent)
+                        }
+                        is Result.Error ->{
+                            showLoading(false)
+                            Toast.makeText(requireContext(), "Error: ${result.error}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+                
+            }
         }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.pbUpload.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     companion object {
