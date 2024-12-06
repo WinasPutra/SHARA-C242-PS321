@@ -1,5 +1,7 @@
 package com.example.shara.adapter
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -32,11 +34,16 @@ class NewsAdapter: ListAdapter<ArticlesItem, NewsAdapter.ViewHolder>(DIFF_CALLBA
                 binding.tvItemTitle.text = news.title
                 binding.tvItemPublishedDate.text = news.publishedAt.let {
                     DateFormatter.formatDate(it)
-                } ?: "No Date"
+                }
                 news.urlToImage.let { imageUrl ->
                     Glide.with(itemView.context)
                         .load(imageUrl)
                         .into(binding.imgPoster)
+                }
+                itemView.setOnClickListener{
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = Uri.parse(news.url)
+                    itemView.context.startActivity(intent)
                 }
             }
 

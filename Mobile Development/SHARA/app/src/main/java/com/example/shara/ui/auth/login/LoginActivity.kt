@@ -1,5 +1,7 @@
 package com.example.shara.ui.auth.login
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -24,6 +26,7 @@ class LoginActivity : AppCompatActivity() {
 
         userLogin()
         showLoading(false)
+        playAnimation()
     }
     private fun userLogin(){
         binding.buttonForLogin.setOnClickListener {
@@ -64,6 +67,25 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun playAnimation(){
+        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
+            duration = 6000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
+        val email = ObjectAnimator.ofFloat(binding.textInputLoginLayoutEmail, View.ALPHA, 1f).setDuration(200)
+        val password = ObjectAnimator.ofFloat(binding.textInputLoginLayoutPassword, View.ALPHA, 1f).setDuration(200)
+        val login = ObjectAnimator.ofFloat(binding.buttonForLogin, View.ALPHA, 1f).setDuration(200)
+
+        AnimatorSet().apply {
+            playSequentially(
+                email,
+                password,
+                login)
+            startDelay = 100
+        }.start()
     }
 
     private fun showLoading(isLoading: Boolean) {

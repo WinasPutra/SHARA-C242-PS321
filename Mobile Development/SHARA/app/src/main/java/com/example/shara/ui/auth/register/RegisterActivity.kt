@@ -1,5 +1,7 @@
 package com.example.shara.ui.auth.register
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -26,6 +28,7 @@ class RegisterActivity : AppCompatActivity() {
 
         setupRegister()
         showLoading(false)
+        playAnimation()
     }
 
     private fun setupRegister() {
@@ -67,6 +70,32 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun playAnimation(){
+        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
+            duration = 6000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
+
+        val name =
+            ObjectAnimator.ofFloat(binding.textInputLayoutUsername, View.ALPHA, 1f).setDuration(200)
+        val email =
+            ObjectAnimator.ofFloat(binding.textInputLayoutEmail, View.ALPHA, 1f).setDuration(200)
+        val password =
+            ObjectAnimator.ofFloat(binding.textInputLayoutPassword, View.ALPHA, 1f).setDuration(200)
+        val register =
+            ObjectAnimator.ofFloat(binding.buttonForRegister, View.ALPHA, 1f).setDuration(200)
+
+        AnimatorSet().apply {
+            playSequentially(
+                name,
+                email,
+                password,
+                register)
+            startDelay = 100
+        }.start()
     }
 
     private fun showLoading(isLoading: Boolean) {
