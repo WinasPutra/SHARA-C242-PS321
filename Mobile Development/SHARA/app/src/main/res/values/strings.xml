@@ -27,5 +27,7 @@
     <string name="skin_type">Skin Type</string>
     <string name="insert_skin_type">Result Skin Type</string>
     <string name="riwayat_upload">Riwayat Upload</string>
+    <string name="title">Title</string>
+    <string name="date">Date</string>
 
 </resources>
