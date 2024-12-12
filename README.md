@@ -20,10 +20,10 @@ Struggling to find the right skincare products for your unique skin type? SHARA,
 
 ## Tech & Tools
 ### Machine Learning
--
--
--
--
+- Keras
+- Google Colab
+- TensorFlow
+- Python
 
 ### Cloud Computing
 - Javascript
@@ -36,9 +36,9 @@ Struggling to find the right skincare products for your unique skin type? SHARA,
 - Postman
 
 ### Mobile Development
--
--
--
--
--
--
+- Kotlin
+- Android Studio
+- Android Jetpack
+- Figma
+- Postman
+- Retrofit
